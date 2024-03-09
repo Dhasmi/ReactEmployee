@@ -10,8 +10,8 @@ function Student() {
   useEffect(() => {
     axios
       .get("http://localhost:8000/")
-      .then((res) => setStudent(res.data))
-      .then((res) => setFilterusers(res.data))
+      .then((res) => {setStudent(res.data); return res.data;})
+      .then((data) => setFilterusers(data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -29,6 +29,7 @@ function Student() {
   const handleOrderChange = (event) => {
     setOrder(event.target.values);
   };
+
 
   return (
     <div className="container">
