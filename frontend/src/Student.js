@@ -3,25 +3,25 @@ import axios from "axios";
 import "./App.css";
 //import { Search } from './components /Search';
 function Student() {
-  const [Student, setStudent] = useState([]);
+  const [students, setStudents] = useState([]);
   const [filterusers, setFilterusers] = useState([]);
   const [order, setOrder] = useState("ASC");
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/")
-      .then((res) => {setStudent(res.data); return res.data;})
+      .then((res) => {setStudents(res.data); return res.data;})
       .then((data) => setFilterusers(data))
       .catch((err) => console.log(err));
   }, []);
 
   // Search Filter Function
   const handleSearchSubmit = (e) => {
-    const searchText = e.target.value.toLowercase();
-    const filteredUsers = Student.filter(
-      (Student) =>
-        Student.name.toLowerCase().includes(searchText) ||
-        Student.city.toLowerCase().includes(searchText)
+    const searchText = e.target.value.toLowerCase();
+    const filteredUsers = students.filter(
+      (student) =>
+       student?.Name && student.Name.toLowerCase().includes(searchText) ||
+       student?.City && student.City.toLowerCase().includes(searchText)
     );
     setFilterusers(filteredUsers);
   };
